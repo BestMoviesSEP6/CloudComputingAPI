@@ -1,3 +1,5 @@
+using CloudComputingAPI.Repositories;
+using CloudComputingAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +28,10 @@ namespace CloudComputingAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<DapperDbContext>();
+            services.AddScoped<IMoviesRepository, MoviesRepository>();
+            services.AddScoped<IMoviesService, MoviesService>();
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
@@ -36,6 +42,7 @@ namespace CloudComputingAPI
                     Title = "Implement Swagger UI",
                 });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
