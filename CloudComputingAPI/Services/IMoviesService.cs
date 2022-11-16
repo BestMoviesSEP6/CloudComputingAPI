@@ -7,6 +7,6 @@ namespace CloudComputingAPI.Services
 {
     public interface IMoviesService
     {
-        Task<IEnumerable<Movie>> GetMovies();
+        Task<IEnumerable<Movie>> GetRecommendedMovies();
     }
 }

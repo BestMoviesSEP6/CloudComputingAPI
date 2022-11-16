@@ -22,7 +22,7 @@ namespace CloudComputingAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Movie>> GetMovies()
+        public async Task<IEnumerable<Movie>> GetRecommendedMovies()
         {
             return await _moviesService.GetMovies();
         }

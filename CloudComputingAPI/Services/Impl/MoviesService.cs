@@ -3,7 +3,7 @@ using CloudComputingAPI.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CloudComputingAPI.Services
+namespace CloudComputingAPI.Services.Impl
 {
     public class MoviesService : IMoviesService
     {
@@ -13,9 +13,9 @@ namespace CloudComputingAPI.Services
         {
             _moviesRepository = moviesRepository;
         }
-        public async Task<IEnumerable<Movie>> GetMovies()
+        public async Task<IEnumerable<Movie>> GetRecommendedMovies()
         {
-            return await _moviesRepository.GetMovieById();
+            return await _moviesRepository.GetRecommendedMovies();
         }
     }
 }

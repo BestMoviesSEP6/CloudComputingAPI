@@ -1,5 +1,7 @@
 using CloudComputingAPI.Repositories;
+using CloudComputingAPI.Repositories.Impl;
 using CloudComputingAPI.Services;
+using CloudComputingAPI.Services.Impl;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +32,7 @@ namespace CloudComputingAPI
         {
             services.AddSingleton<DapperDbContext>();
             services.AddScoped<IMoviesRepository, MoviesRepository>();
+            services.AddScoped<IOMDbRepository, OMDbRepository>();
             services.AddScoped<IMoviesService, MoviesService>();
 
             services.AddControllers();

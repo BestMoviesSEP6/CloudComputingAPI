@@ -7,6 +7,7 @@ namespace CloudComputingAPI.Repositories
 {
     public interface IMoviesRepository
     {
-        public Task<IEnumerable<Movie>> GetMovieById();
+        public Task<IEnumerable<Movie>> GetRecommendedMovies();
+        Task<Movie> GetMovieById(int movieId);
     }
 }
