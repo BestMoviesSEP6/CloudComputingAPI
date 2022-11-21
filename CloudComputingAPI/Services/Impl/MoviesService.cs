@@ -13,9 +13,15 @@ namespace CloudComputingAPI.Services.Impl
         {
             _moviesRepository = moviesRepository;
         }
-        public async Task<IEnumerable<Movie>> GetRecommendedMovies()
+
+        public async Task AddMovieToFavorites(int user_id, int movie_id)
         {
-            return await _moviesRepository.GetRecommendedMovies();
+            await _moviesRepository.AddMovieToFavorites(user_id, movie_id);
+        }
+
+        public async Task<IEnumerable<int>> GetAllFavorites(int user_id)
+        {
+            return await _moviesRepository.GetAllFavorites(user_id);
         }
     }
 }

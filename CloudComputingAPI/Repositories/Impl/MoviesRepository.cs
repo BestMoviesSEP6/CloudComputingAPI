@@ -14,22 +14,24 @@ namespace CloudComputingAPI.Repositories.Impl
             _context = context;
         }
 
-        public async Task<IEnumerable<Movie>> GetRecommendedMovies()
+        public async Task AddMovieToFavorites(int user_id, int movie_id)
         {
             using (var connection = _context.CreateConnection())
             {
-                var query = "SELECT TOP(1000) id, title, year FROM [dbo].[movies]";
-                var movie = await connection.QueryAsync<Movie>(query);
-                return movie;
+                var query = @"INSERT INTO [dbo].[favorites] (movie_id, user_id)
+                                VALUES (@movie_id, @user_id)";
+                await connection.QueryAsync(query, new { movie_id = movie_id, user_id = user_id }).ConfigureAwait(false);
             }
         }
 
-        public async Task<Movie> GetMovieById(int movieId)
+        public async Task<IEnumerable<int>> GetAllFavorites(int user_id)
         {
             using (var connection = _context.CreateConnection())
             {
-                var query = @"";
-                var movie = await connection.QuerySingleOrDefaultAsync<Movie>(query);
+                var query = @"SELECT movie_id 
+                                FROM [dbo].[favorites] 
+                                WHERE user_id = @user_id";
+                var movie = await connection.QueryAsync<int>(query, new { user_id = user_id }).ConfigureAwait(false);
                 return movie;
             }
         }

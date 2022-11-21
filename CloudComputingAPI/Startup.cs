@@ -31,9 +31,15 @@ namespace CloudComputingAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<DapperDbContext>();
+
+            //Repositories
             services.AddScoped<IMoviesRepository, MoviesRepository>();
-            services.AddScoped<IOMDbRepository, OMDbRepository>();
+            services.AddScoped<ITMDbRepository, TMDbRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            //Services
             services.AddScoped<IMoviesService, MoviesService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddControllers();
 

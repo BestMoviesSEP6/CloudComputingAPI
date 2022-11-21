@@ -21,10 +21,17 @@ namespace CloudComputingAPI.Controllers
             _moviesService = moviesService;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<Movie>> GetRecommendedMovies()
+        [HttpPost("favorites/add/{user_id}/{movie_id}")]
+        public async Task<IActionResult> AddMovieToFavorites([FromRoute] int user_id, [FromRoute] int movie_id)
         {
-            return await _moviesService.GetMovies();
+            await _moviesService.AddMovieToFavorites(user_id, movie_id);
+            return Ok();
+        }
+
+        [HttpGet("favorites/get/{user_id}")]
+        public async Task<IEnumerable<int>> GetFavorites([FromRoute] int user_id)
+        {
+            return await _moviesService.GetAllFavorites(user_id);
         }
     }
 }

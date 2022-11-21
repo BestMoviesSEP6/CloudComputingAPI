@@ -7,6 +7,7 @@ namespace CloudComputingAPI.Services
 {
     public interface IMoviesService
     {
-        Task<IEnumerable<Movie>> GetRecommendedMovies();
+        Task AddMovieToFavorites(int user_id, int movie_id);
+        Task<IEnumerable<int>> GetAllFavorites(int user_id);
     }
 }
