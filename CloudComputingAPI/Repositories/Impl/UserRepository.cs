@@ -40,7 +40,7 @@ namespace CloudComputingAPI.Repositories.Impl
             {
                 var query = @"INSERT INTO [dbo].[user] (username, password)
                                 VALUES (@username, @password)";
-                await connection.QueryAsync(query, new { username = username, password = password }).ConfigureAwait(false);
+                await connection.ExecuteAsync(query, new { username = username, password = password }).ConfigureAwait(false);
             }
         }
     }

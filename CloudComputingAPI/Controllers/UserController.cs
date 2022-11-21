@@ -26,10 +26,9 @@ namespace CloudComputingAPI.Controllers
         }
 
         [HttpPost("create/{username}/{password}")]
-        public async Task<IActionResult> UserSignUp([FromRoute] string username, [FromRoute] string password)
+        public async Task UserSignUp([FromRoute] string username, [FromRoute] string password)
         {
             await _userService.UserSignUp(username, password);
-            return Ok();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace CloudComputingAPI.Repositories.Impl
             {
                 var query = @"INSERT INTO [dbo].[favorites] (movie_id, user_id)
                                 VALUES (@movie_id, @user_id)";
-                await connection.QueryAsync(query, new { movie_id = movie_id, user_id = user_id }).ConfigureAwait(false);
+                await connection.ExecuteAsync(query, new { movie_id = movie_id, user_id = user_id }).ConfigureAwait(false);
             }
         }
 

@@ -22,10 +22,9 @@ namespace CloudComputingAPI.Controllers
         }
 
         [HttpPost("favorites/add/{user_id}/{movie_id}")]
-        public async Task<IActionResult> AddMovieToFavorites([FromRoute] int user_id, [FromRoute] int movie_id)
+        public async Task AddMovieToFavorites([FromRoute] int user_id, [FromRoute] int movie_id)
         {
             await _moviesService.AddMovieToFavorites(user_id, movie_id);
-            return Ok();
         }
 
         [HttpGet("favorites/get/{user_id}")]
