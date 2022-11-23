@@ -6,7 +6,6 @@ namespace CloudComputingAPI.Repositories
     public interface IUserRepository
     {
         Task<UserLogin> GetUserLogin(string username);
-        Task CreateUser(string username, string password); 
-        Task<string> CheckUsername(string username);
+        Task<string> CreateUser(string username, string password); 
     }
 }

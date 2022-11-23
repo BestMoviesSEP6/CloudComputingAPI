@@ -24,16 +24,16 @@ namespace CloudComputingAPI.Controllers
 
         [EnableCors("AllowOrigin")]
         [HttpPost("favorites/add/{user_id}/{movie_id}")]
-        public async Task AddMovieToFavorites([FromRoute] int user_id, [FromRoute] int movie_id)
+        public async Task<string> AddMovieToFavorites([FromRoute] int user_id, [FromRoute] int movie_id)
         {
-            await _moviesService.AddMovieToFavorites(user_id, movie_id);
+            return await _moviesService.AddMovieToFavorites(user_id, movie_id);
         }
 
         [EnableCors("AllowOrigin")]
         [HttpPost("favorites/remove/{user_id}/{movie_id}")]
-        public async Task RemoveMovieFromFavorites([FromRoute] int user_id, [FromRoute] int movie_id)
+        public async Task<string> RemoveMovieFromFavorites([FromRoute] int user_id, [FromRoute] int movie_id)
         {
-            await _moviesService.RemoveMovieFromFavorites(user_id, movie_id);
+            return await _moviesService.RemoveMovieFromFavorites(user_id, movie_id);
         }
 
         [EnableCors("AllowOrigin")]

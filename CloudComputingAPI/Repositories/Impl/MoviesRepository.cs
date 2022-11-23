@@ -14,13 +14,24 @@ namespace CloudComputingAPI.Repositories.Impl
             _context = context;
         }
 
-        public async Task AddMovieToFavorites(int user_id, int movie_id)
+        public async Task<string> AddMovieToFavorites(int user_id, int movie_id)
         {
             using (var connection = _context.CreateConnection())
             {
-                var query = @"INSERT INTO [dbo].[favorites] (movie_id, user_id)
-                                VALUES (@movie_id, @user_id)";
-                await connection.ExecuteAsync(query, new { movie_id = movie_id, user_id = user_id }).ConfigureAwait(false);
+                    var query = @"IF NOT EXISTS ( SELECT 1 FROM [dbo].[favorites] WHERE movie_id = @movie_id AND user_id = @user_id )
+                                    BEGIN
+                                        INSERT INTO [dbo].[favorites] (movie_id, user_id)
+                                            VALUES (@movie_id, @user_id)
+                                    END";
+                    var amountOfAffectedRows = await connection.ExecuteAsync(query, new { movie_id = movie_id, user_id = user_id }).ConfigureAwait(false);
+                    if (amountOfAffectedRows > 0)
+                    {
+                        return "Success";
+                    }
+                    else
+                    {
+                        return "Movie is already added";
+                    }
             }
         }
 
@@ -36,13 +47,21 @@ namespace CloudComputingAPI.Repositories.Impl
             }
         }
 
-        public async Task RemoveMovieFromFavorites(int user_id, int movie_id)
+        public async Task<string> RemoveMovieFromFavorites(int user_id, int movie_id)
         {
             using (var connection = _context.CreateConnection())
             {
                 var query = @"DELETE FROM [dbo].[favorites] 
                                 WHERE user_id = @user_id AND movie_id = @movie_id";
-                await connection.ExecuteAsync(query, new { movie_id = movie_id, user_id = user_id }).ConfigureAwait(false);
+                var amountOfAffectedRows = await connection.ExecuteAsync(query, new { movie_id = movie_id, user_id = user_id }).ConfigureAwait(false);
+                if (amountOfAffectedRows > 0)
+                {
+                    return "Success";
+                }
+                else
+                {
+                    return "The movie is not in the favorites list in order to be removed";
+                }
             }
         }
     }

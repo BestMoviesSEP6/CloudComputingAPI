@@ -25,27 +25,19 @@ namespace CloudComputingAPI.Repositories.Impl
             }
         }
 
-        public async Task CreateUser(string username, string password)
+        public async Task<string> CreateUser(string username, string password)
         {
             using (var connection = _context.CreateConnection())
             {
-                var query = @"INSERT INTO [dbo].[user] (username, password)
-                                VALUES (@username, @password)";
-                await connection.ExecuteAsync(query, new { username = username, password = password }).ConfigureAwait(false);
-            }
-        }
-
-        public async Task<string> CheckUsername(string username)
-        {
-            using (var connection = _context.CreateConnection())
-            {
-                var query = @"SELECT user_id 
-                                FROM [dbo].[user]
-                                WHERE username = @username";
-                var result = await connection.QuerySingleOrDefaultAsync<int>(query, new { username = username }).ConfigureAwait(false);
-                if (result == 0)
+                var query = @"IF NOT EXISTS ( SELECT 1 FROM [dbo].[user] WHERE username = @username )
+                                BEGIN
+                                    INSERT INTO [dbo].[user] (username, password)
+                                    VALUES (@username, @password)
+                                END";
+                var amountOfAffectedRows = await connection.ExecuteAsync(query, new { username = username, password = password }).ConfigureAwait(false);
+                if (amountOfAffectedRows > 0)
                 {
-                    return "Username available";
+                    return "Success";
                 }
                 else
                 {

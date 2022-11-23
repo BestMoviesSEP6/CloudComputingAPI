@@ -14,9 +14,9 @@ namespace CloudComputingAPI.Services.Impl
             _moviesRepository = moviesRepository;
         }
 
-        public async Task AddMovieToFavorites(int user_id, int movie_id)
+        public async Task<string> AddMovieToFavorites(int user_id, int movie_id)
         {
-            await _moviesRepository.AddMovieToFavorites(user_id, movie_id);
+            return await _moviesRepository.AddMovieToFavorites(user_id, movie_id);
         }
 
         public async Task<IEnumerable<int>> GetAllFavorites(int user_id)
@@ -24,9 +24,9 @@ namespace CloudComputingAPI.Services.Impl
             return await _moviesRepository.GetAllFavorites(user_id);
         }
 
-        public async Task RemoveMovieFromFavorites(int user_id, int movie_id)
+        public async Task<string> RemoveMovieFromFavorites(int user_id, int movie_id)
         {
-            await _moviesRepository.RemoveMovieFromFavorites(user_id, movie_id);
+            return await _moviesRepository.RemoveMovieFromFavorites(user_id, movie_id);
         }
     }
 }

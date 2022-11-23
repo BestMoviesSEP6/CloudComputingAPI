@@ -23,15 +23,14 @@ namespace CloudComputingAPI.Services.Impl
 
         public async Task<string> UserSignUp(string username, string password)
         {
-            string checkMessage = await _userRepository.CheckUsername(username);
-            if(checkMessage.Equals("Username available"))
+            var response = await _userRepository.CreateUser(username, password);
+            if(response.Equals("Success"))
             {
-                await _userRepository.CreateUser(username, password);
                 return (await UserAuthentication(username, password)).ToString();
             }
             else
             {
-                return checkMessage;
+                return response;
             }
         }
     }
