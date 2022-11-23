@@ -30,6 +30,13 @@ namespace CloudComputingAPI.Controllers
         }
 
         [EnableCors("AllowOrigin")]
+        [HttpPost("favorites/remove/{user_id}/{movie_id}")]
+        public async Task RemoveMovieFromFavorites([FromRoute] int user_id, [FromRoute] int movie_id)
+        {
+            await _moviesService.RemoveMovieFromFavorites(user_id, movie_id);
+        }
+
+        [EnableCors("AllowOrigin")]
         [HttpGet("favorites/get/{user_id}")]
         public async Task<IEnumerable<int>> GetFavorites([FromRoute] int user_id)
         {

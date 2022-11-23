@@ -23,5 +23,10 @@ namespace CloudComputingAPI.Services.Impl
         {
             return await _moviesRepository.GetAllFavorites(user_id);
         }
+
+        public async Task RemoveMovieFromFavorites(int user_id, int movie_id)
+        {
+            await _moviesRepository.RemoveMovieFromFavorites(user_id, movie_id);
+        }
     }
 }

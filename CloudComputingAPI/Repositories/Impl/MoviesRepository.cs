@@ -35,5 +35,15 @@ namespace CloudComputingAPI.Repositories.Impl
                 return movie;
             }
         }
+
+        public async Task RemoveMovieFromFavorites(int user_id, int movie_id)
+        {
+            using (var connection = _context.CreateConnection())
+            {
+                var query = @"DELETE FROM [dbo].[favorites] 
+                                WHERE user_id = @user_id AND movie_id = @movie_id";
+                await connection.ExecuteAsync(query, new { movie_id = movie_id, user_id = user_id }).ConfigureAwait(false);
+            }
+        }
     }
 }
