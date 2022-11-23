@@ -1,5 +1,6 @@
 ﻿using CloudComputingAPI.Services;
 using CloudComputingAPI.Services.Impl;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -19,12 +20,14 @@ namespace CloudComputingAPI.Controllers
             _userService = userService;
         }
 
+        [EnableCors("AllowOrigin")]
         [HttpGet("login/{username}/{password}")]
         public async Task<int> UserAuthentication([FromRoute] string username, [FromRoute] string password)
         {
             return await _userService.UserAuthentication(username, password);
         }
 
+        [EnableCors("AllowOrigin")]
         [HttpPost("create/{username}/{password}")]
         public async Task UserSignUp([FromRoute] string username, [FromRoute] string password)
         {

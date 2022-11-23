@@ -42,6 +42,16 @@ namespace CloudComputingAPI
             services.AddScoped<IUserService, UserService>();
 
             services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllowOrigin",
+                    builder =>
+                    {
+                        builder.WithOrigins("https://localhost:44351", "http://localhost:4200")
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod();
+                    });
+            });
 
             services.AddSwaggerGen(c =>
             {
@@ -71,7 +81,10 @@ namespace CloudComputingAPI
 
             app.UseRouting();
 
+            app.UseCors("AllowOrigin");
+
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
