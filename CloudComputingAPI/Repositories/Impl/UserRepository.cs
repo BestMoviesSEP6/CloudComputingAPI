@@ -40,10 +40,10 @@ namespace CloudComputingAPI.Repositories.Impl
             using (var connection = _context.CreateConnection())
             {
                 var query = @"SELECT user_id 
-                                FROM [dbo].[users]
+                                FROM [dbo].[user]
                                 WHERE username = @username";
                 var result = await connection.QuerySingleOrDefaultAsync<int>(query, new { username = username }).ConfigureAwait(false);
-                if (result == null)
+                if (result == 0)
                 {
                     return "Username available";
                 }
