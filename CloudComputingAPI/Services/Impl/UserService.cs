@@ -27,7 +27,7 @@ namespace CloudComputingAPI.Services.Impl
             if(checkMessage.Equals("Username available"))
             {
                 await _userRepository.CreateUser(username, password);
-                return UserAuthentication(username, password).ToString();
+                return (await UserAuthentication(username, password)).ToString();
             }
             else
             {
