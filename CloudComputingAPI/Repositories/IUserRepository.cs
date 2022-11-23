@@ -7,5 +7,6 @@ namespace CloudComputingAPI.Repositories
     {
         Task<UserLogin> GetUserLogin(string username);
         Task CreateUser(string username, string password); 
+        Task<string> CheckUsername(string username);
     }
 }

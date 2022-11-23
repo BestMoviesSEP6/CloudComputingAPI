@@ -13,15 +13,6 @@ namespace CloudComputingAPI.Repositories.Impl
             _context = context;
         }
 
-        public async Task CreateAccount(string username, string password)
-        {
-            using (var connection = _context.CreateConnection())
-            {
-                var query = "";
-                await connection.QueryAsync(query);
-            }
-        }
-
         public async Task<UserLogin> GetUserLogin(string username)
         {
             using (var connection = _context.CreateConnection())
@@ -41,6 +32,25 @@ namespace CloudComputingAPI.Repositories.Impl
                 var query = @"INSERT INTO [dbo].[user] (username, password)
                                 VALUES (@username, @password)";
                 await connection.ExecuteAsync(query, new { username = username, password = password }).ConfigureAwait(false);
+            }
+        }
+
+        public async Task<string> CheckUsername(string username)
+        {
+            using (var connection = _context.CreateConnection())
+            {
+                var query = @"SELECT user_id 
+                                FROM [dbo].[users]
+                                WHERE username = @username";
+                var result = await connection.QuerySingleOrDefaultAsync<int>(query, new { username = username }).ConfigureAwait(false);
+                if (result == null)
+                {
+                    return "Username available";
+                }
+                else
+                {
+                    return "Username already exists";
+                }
             }
         }
     }
