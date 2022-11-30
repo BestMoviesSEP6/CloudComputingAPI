@@ -2,7 +2,7 @@
 {
     public class UserLogin
     {
-        public int user_id;
-        public string password;
+        public int user_id { get; set; }
+        public string password { get; set; }
     }
 }

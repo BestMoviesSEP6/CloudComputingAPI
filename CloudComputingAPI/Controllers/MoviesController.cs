@@ -1,4 +1,5 @@
-﻿using CloudComputingAPI.Services;
+﻿using CloudComputingAPI.Models;
+using CloudComputingAPI.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -19,6 +20,10 @@ namespace CloudComputingAPI.Controllers
             _logger = logger;
             _moviesService = moviesService;
         }
+
+
+        // --- Favorites ---
+
 
         [EnableCors("AllowOrigin")]
         [HttpPost("favorites/add/{user_id}/{movie_id}")]
@@ -41,8 +46,60 @@ namespace CloudComputingAPI.Controllers
             return await _moviesService.GetAllFavorites(user_id);
         }
 
+
+        // --- Users' Lists ---
+
+
         [EnableCors("AllowOrigin")]
-        [HttpPost("personalList/create/{listName}/{endReleaseDate}")]
-        public async Task<string>
+        [HttpPost("list/create")]
+        public async Task<string> CreateListForUser([FromBody] int user_id, [FromBody] string user_list_name, [FromBody] bool public_list)
+        {
+            return await _moviesService.CreateListForUser(user_id, user_list_name, public_list);
+        }
+
+        [EnableCors("AllowOrigin")]
+        [HttpPost("list/add/{movieId}")]
+        public async Task<string> AddMovieToList([FromBody] int user_id, [FromBody] int user_list_id, [FromRoute] int movie_id)
+        {
+            return await _moviesService.AddMovieToList(user_id, user_list_id, movie_id);
+        }
+
+        [EnableCors("AllowOrigin")]
+        [HttpPost("list/remove/{movieId}")]
+        public async Task<string> RemoveMovieFromList([FromBody] int user_id, [FromBody] int user_list_id, [FromRoute] int movie_id)
+        {
+            return await _moviesService.RemoveMovieFromList(user_id, user_list_id, movie_id);
+        }
+
+        // Returns the content of a list (List of movie_ids)
+        [EnableCors("AllowOrigin")]
+        [HttpGet("list/content/get")]
+        public async Task<IEnumerable<int>> GetUserListContent([FromBody] int user_id, [FromBody] int user_list_id)
+        {
+            return await _moviesService.GetUserListContent(user_id, user_list_id);
+        }
+
+        // Returns the lists which belongs to a specific user (List of strings with the list names)
+        [EnableCors("AllowOrigin")]
+        [HttpGet("list/user/get")]
+        public async Task<IEnumerable<UserList>> GetAllListsForUser([FromBody] int user_id)
+        {
+            return await _moviesService.GetAllListsForUser(user_id);
+        }
+
+        [EnableCors("AllowOrigin")]
+        [HttpPost("list/edit")]
+        public async Task<string> EditListNameAndPrivacy([FromBody] int user_id, [FromBody] int user_list_id, [FromBody] string old_user_list_name, [FromBody] string new_user_list_name, [FromBody] bool public_list)
+        {
+            return await _moviesService.EditListNameAndPrivacy(user_id, user_list_id, old_user_list_name, new_user_list_name, public_list);
+        }
+
+        // Returns all the public lists except the ones which belongs to the logged in user
+        [EnableCors("AllowOrigin")]
+        [HttpGet("list/global/get")]
+        public async Task<IEnumerable<UserList>> GetAllPublicLists([FromBody] int user_id)
+        {
+            return await _moviesService.GetAllPublicLists(user_id);
+        }
     }
 }
