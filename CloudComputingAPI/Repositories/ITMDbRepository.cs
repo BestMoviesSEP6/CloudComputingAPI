@@ -1,8 +1,7 @@
-﻿using System.Threading.Tasks;
-
-namespace CloudComputingAPI.Repositories
+﻿namespace CloudComputingAPI.Repositories
 {
     public interface ITMDbRepository
     {
+        Task<>
     }
 }

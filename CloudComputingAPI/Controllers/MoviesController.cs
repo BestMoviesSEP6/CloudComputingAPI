@@ -1,9 +1,7 @@
-﻿using CloudComputingAPI.Models;
-using CloudComputingAPI.Services;
+﻿using CloudComputingAPI.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -42,5 +40,9 @@ namespace CloudComputingAPI.Controllers
         {
             return await _moviesService.GetAllFavorites(user_id);
         }
+
+        [EnableCors("AllowOrigin")]
+        [HttpPost("personalList/create/{listName}/{endReleaseDate}")]
+        public async Task<string>
     }
 }

@@ -14,7 +14,7 @@ namespace CloudComputingAPI.Services.Impl
         public async Task<int> UserAuthentication(string username, string password)
         {
             var userLogin = await _userRepository.GetUserLogin(username);
-            if(userLogin.password == password)
+            if (userLogin.password == password)
             {
                 return userLogin.user_id;
             }
@@ -24,7 +24,7 @@ namespace CloudComputingAPI.Services.Impl
         public async Task<string> UserSignUp(string username, string password)
         {
             var response = await _userRepository.CreateUser(username, password);
-            if(response.Equals("Success"))
+            if (response.Equals("Success"))
             {
                 return (await UserAuthentication(username, password)).ToString();
             }

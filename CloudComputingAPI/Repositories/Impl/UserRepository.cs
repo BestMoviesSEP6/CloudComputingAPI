@@ -20,7 +20,7 @@ namespace CloudComputingAPI.Repositories.Impl
                 var query = @"SELECT user_id, password
                               FROM [dbo].[user]
                               WHERE username = @username";
-                var result = await connection.QuerySingleOrDefaultAsync<UserLogin>(query, new {username = username}).ConfigureAwait(false);
+                var result = await connection.QuerySingleOrDefaultAsync<UserLogin>(query, new { username = username }).ConfigureAwait(false);
                 return result;
             }
         }

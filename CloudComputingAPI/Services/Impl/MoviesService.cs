@@ -1,5 +1,4 @@
-﻿using CloudComputingAPI.Models;
-using CloudComputingAPI.Repositories;
+﻿using CloudComputingAPI.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

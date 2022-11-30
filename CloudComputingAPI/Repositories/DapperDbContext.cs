@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace CloudComputingAPI.Repositories
 {
