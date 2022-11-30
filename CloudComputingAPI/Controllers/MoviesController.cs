@@ -79,7 +79,7 @@ namespace CloudComputingAPI.Controllers
             return await _moviesService.GetUserListContent(user_id, user_list_id);
         }
 
-        // Returns the lists which belongs to a specific user (List of strings with the list names)
+        // Returns the lists which belongs to a specific user 
         [EnableCors("AllowOrigin")]
         [HttpGet("list/user/get/{user_id}")]
         public async Task<IEnumerable<UserList>> GetAllListsForUser([FromRoute] int user_id)
