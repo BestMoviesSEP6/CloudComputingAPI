@@ -20,15 +20,15 @@ namespace CloudComputingAPI.Controllers
         }
 
         [EnableCors("AllowOrigin")]
-        [HttpGet("login")]
-        public async Task<int> UserAuthentication([FromBody] string username, [FromBody] string password)
+        [HttpPost("login/{username}")]
+        public async Task<int> UserAuthentication([FromRoute] string username, [FromBody] string password)
         {
             return await _userService.UserAuthentication(username, password);
         }
 
         [EnableCors("AllowOrigin")]
-        [HttpPost("create}")]
-        public async Task<string> UserSignUp([FromBody] string username, [FromBody] string password)
+        [HttpPost("create/{username}")]
+        public async Task<string> UserSignUp([FromRoute] string username, [FromBody] string password)
         {
             return await _userService.UserSignUp(username, password);
         }

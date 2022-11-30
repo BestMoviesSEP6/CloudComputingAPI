@@ -19,7 +19,7 @@ namespace CloudComputingAPI.Repositories
         Task<string> RemoveMovieFromList(int user_id, int user_list_id, int movie_id);
         Task<IEnumerable<int>> GetUserListContent(int user_id, int user_list_id);
         Task<IEnumerable<UserList>> GetAllListsForUser(int user_id);
-        Task<string> EditListNameAndPrivacy(int user_id, int user_list_id, string old_user_list_name, string new_user_list_name, bool public_list);
+        Task<string> EditListNameAndPrivacy(int user_list_id, string new_user_list_name, bool public_list);
         Task<IEnumerable<UserList>> GetAllPublicLists(int user_id);
     }
 }

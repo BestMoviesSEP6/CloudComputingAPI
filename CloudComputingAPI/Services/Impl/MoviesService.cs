@@ -62,9 +62,9 @@ namespace CloudComputingAPI.Services.Impl
             return await _moviesRepository.GetAllListsForUser(user_id);
         }
 
-        public async Task<string> EditListNameAndPrivacy(int user_id, int user_list_id, string old_user_list_name, string new_user_list_name, bool public_list)
+        public async Task<string> EditListNameAndPrivacy(int user_list_id, string new_user_list_name, bool public_list)
         {
-            return await _moviesRepository.EditListNameAndPrivacy(user_id, user_list_id, old_user_list_name, new_user_list_name, public_list);
+            return await _moviesRepository.EditListNameAndPrivacy(user_list_id, new_user_list_name, public_list);
         }
 
         public async Task<IEnumerable<UserList>> GetAllPublicLists(int user_id)

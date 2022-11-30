@@ -167,7 +167,7 @@ namespace CloudComputingAPI.Repositories.Impl
             }
         }
 
-        public async Task<string> EditListNameAndPrivacy(int user_id, int user_list_id, string old_user_list_name, string new_user_list_name, bool public_list)
+        public async Task<string> EditListNameAndPrivacy(int user_list_id, string new_user_list_name, bool public_list)
         {
             using (var connection = _context.CreateConnection())
             {
