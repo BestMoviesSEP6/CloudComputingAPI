@@ -27,7 +27,6 @@ namespace CloudComputingAPI
 
             //Repositories
             services.AddScoped<IMoviesRepository, MoviesRepository>();
-            services.AddScoped<ITMDbRepository, TMDbRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
 
             //Services
