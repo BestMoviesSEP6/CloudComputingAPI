@@ -58,14 +58,14 @@ namespace CloudComputingAPI.Controllers
         }
 
         [EnableCors("AllowOrigin")]
-        [HttpPost("list/add/{user_list_id}/{movieId}")]
+        [HttpPost("list/add/{user_list_id}/{movie_id}")]
         public async Task<string> AddMovieToList([FromBody] int user_id, [FromRoute] int user_list_id, [FromRoute] int movie_id)
         {
             return await _moviesService.AddMovieToList(user_id, user_list_id, movie_id);
         }
 
         [EnableCors("AllowOrigin")]
-        [HttpPost("list/remove/{user_list_id}/{movieId}")]
+        [HttpPost("list/remove/{user_list_id}/{movie_id}")]
         public async Task<string> RemoveMovieFromList([FromBody] int user_id, [FromRoute] int user_list_id, [FromRoute] int movie_id)
         {
             return await _moviesService.RemoveMovieFromList(user_id, user_list_id, movie_id);
