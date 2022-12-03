@@ -1,6 +1,8 @@
 ﻿using CloudComputingAPI.Models;
 using Dapper;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 
 namespace CloudComputingAPI.Repositories.Impl
@@ -100,43 +102,57 @@ namespace CloudComputingAPI.Repositories.Impl
 
         public async Task<string> AddMovieToList(int user_id, int user_list_id, int movie_id)
         {
-            using (var connection = _context.CreateConnection())
+            try
             {
-                var query = @"INSERT INTO [dbo].[moviesInLists]
+                using (var connection = _context.CreateConnection())
+                {
+                    var query = @"INSERT INTO [dbo].[moviesInLists]
                                 VALUES (@list_id, @movie_id)";
 
-                var amountOfAffectedRows = await connection.ExecuteAsync(query,
-                    new { list_id = user_list_id, movie_id = movie_id }).ConfigureAwait(false);
+                    var amountOfAffectedRows = await connection.ExecuteAsync(query,
+                        new { list_id = user_list_id, movie_id = movie_id }).ConfigureAwait(false);
 
-                if (amountOfAffectedRows > 0)
-                {
-                    return "Success";
+                    if (amountOfAffectedRows > 0)
+                    {
+                        return "Success";
+                    }
+                    else
+                    {
+                        return "Movie couldn't be added, most probably is already there";
+                    }
                 }
-                else
-                {
-                    return "Movie couldn't be added, most probably is already there";
-                }
+            }
+            catch (SqlException e)
+            {
+                return "Movie couldn't be added, most probably is already there";
             }
         }
 
         public async Task<string> RemoveMovieFromList(int user_id, int user_list_id, int movie_id)
         {
-            using (var connection = _context.CreateConnection())
+            try
             {
-                var query = @"DELETE FROM [dbo].[moviesInLists]
+                using (var connection = _context.CreateConnection())
+                {
+                    var query = @"DELETE FROM [dbo].[moviesInLists]
                                 WHERE list_id = @list_id and movie_id = @movie_id";
 
-                var amountOfAffectedRows = await connection.ExecuteAsync(query,
-                    new { list_id = user_list_id, movie_id = movie_id }).ConfigureAwait(false);
+                    var amountOfAffectedRows = await connection.ExecuteAsync(query,
+                        new { list_id = user_list_id, movie_id = movie_id }).ConfigureAwait(false);
 
-                if (amountOfAffectedRows > 0)
-                {
-                    return "Success";
+                    if (amountOfAffectedRows > 0)
+                    {
+                        return "Success";
+                    }
+                    else
+                    {
+                        return "Movie couldn't be removed, most probably is not there";
+                    }
                 }
-                else
-                {
-                    return "Movie couldn't be removed, most probably is not there";
-                }
+            }
+            catch (SqlException e)
+            {
+                return "Movie couldn't be removed, most probably is not there";
             }
         }
 
@@ -144,7 +160,7 @@ namespace CloudComputingAPI.Repositories.Impl
         {
             using (var connection = _context.CreateConnection())
             {
-                var query = @"SELECT movie_id FROM [dbo].[moviesInList]
+                var query = @"SELECT movie_id FROM [dbo].[moviesInLists]
                                 WHERE list_id = @list_id";
 
                 var result = await connection.QueryAsync<int>(query,

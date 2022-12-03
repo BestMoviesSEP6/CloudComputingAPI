@@ -49,7 +49,7 @@ namespace CloudComputingAPI.Services.Impl
 
         public async Task<string> RemoveMovieFromList(int user_id, int user_list_id, int movie_id)
         {
-            return await _moviesRepository.AddMovieToList(user_id, user_list_id, movie_id);
+            return await _moviesRepository.RemoveMovieFromList(user_id, user_list_id, movie_id);
         }
 
         public async Task<IEnumerable<int>> GetUserListContent(int user_id, int user_list_id)
